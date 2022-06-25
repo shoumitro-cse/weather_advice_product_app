@@ -1,9 +1,7 @@
-from rest_framework.response import Response
-
 from accounts.models import User, Profile
 from rest_framework_simplejwt.serializers import \
     TokenObtainPairSerializer as JwtTokenObtainPairSerializer
-from rest_framework import serializers, status
+from rest_framework import serializers
 
 
 class TokenObtainPairSerializer(JwtTokenObtainPairSerializer):
