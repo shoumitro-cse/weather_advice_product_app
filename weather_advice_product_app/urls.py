@@ -31,10 +31,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # add accounts urls
-    path('accounts/', include('accounts.urls')),
+    path('api/accounts/', include('accounts.urls')),
 
     # add weather urls
-    path('', include('weather.urls')),
+    path('api/', include('weather.urls')),
+
+    # add ProductT urls
+    path('api/', include('products.urls')),
 
     # Token authentication for API
     path('api/token/', TokenObtainPairView.as_view(serializer_class=TokenObtainPairSerializer),

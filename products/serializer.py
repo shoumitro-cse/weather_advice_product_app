@@ -9,7 +9,7 @@ class ProductSerializer(serializers.ModelSerializer):
         exclude = ('is_active', 'created_at', 'created_by', 'updated_at', 'updated_by', )
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class ProductTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductType
