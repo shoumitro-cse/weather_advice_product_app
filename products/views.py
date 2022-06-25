@@ -6,12 +6,12 @@ from rest_framework import generics
 from accounts.models import VENDOR
 
 
-class ProductListCreateView(generics.ListCreateAPIView):
+class ProductListCreateView(mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product or to see all products.
-    Only Authenticated admin super will be able to see it.
-    when a vendor user try to send this request:
+    Only Authenticated admin super will be able to perform it.
+    when an admin user try to send this request:
     <ul>
         <li> It performs create operation after sending a post request </li>
         <li> It gives a list of product after sending a get request.</li>
@@ -23,13 +23,8 @@ class ProductListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, ]
     queryset = Product.objects.all()
 
-    def get_queryset(self):
-        if self.request.user.user_type == VENDOR:
-            return Product.objects.filter(vendor=self.request.user)
-        return self.queryset
 
-
-class ProductUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class ProductUpdateDeleteDestroyView(mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
