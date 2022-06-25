@@ -19,15 +19,20 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView
+)
+from accounts.serializer import TokenObtainPairSerializer
 
 urlpatterns = [
     # for default admin panel
     path('admin/', admin.site.urls),
 
     # Token authentication for API
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair_api'),
+    path('api/token/', TokenObtainPairView.as_view(serializer_class=TokenObtainPairSerializer),
+         name='token_obtain_pair_api'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh_api'),
 
     # for API docs

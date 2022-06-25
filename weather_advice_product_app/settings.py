@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'weather',
 ]
 
+AUTHENTICATION_BACKENDS = ['accounts.auth_backends.EmailBackend']
+
 # set rest default classes
 REST_FRAMEWORK = {
     'DATE_FORMAT': "%d %b %Y",

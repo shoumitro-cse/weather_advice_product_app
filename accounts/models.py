@@ -14,6 +14,7 @@ USER_TYPE_CHOICES = (
 
 class User(AbstractUser):
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=ADMIN)
+    email = models.EmailField("email address", blank=True, unique=True)
 
     class Meta:
         verbose_name = "User"
