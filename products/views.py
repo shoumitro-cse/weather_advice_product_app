@@ -1,12 +1,10 @@
 from rest_framework.permissions import IsAuthenticated
 from products.models import ProductType, Product
 from products.serializer import ProductTypeSerializer, ProductSerializer
-from base import mixin
-from rest_framework import generics
-from accounts.models import VENDOR
+from base.mixin import admin_mixin
 
 
-class ProductListCreateView(mixin.ListCreateAPIView):
+class ProductListCreateView(admin_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product or to see all products.
@@ -24,7 +22,7 @@ class ProductListCreateView(mixin.ListCreateAPIView):
     queryset = Product.objects.all()
 
 
-class ProductUpdateDeleteDestroyView(mixin.RetrieveUpdateDestroyAPIView):
+class ProductUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -45,7 +43,7 @@ class ProductUpdateDeleteDestroyView(mixin.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
 
 
-class ProductTypeListCreateView(mixin.ListCreateAPIView):
+class ProductTypeListCreateView(admin_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product type like normal, hot, cold
@@ -63,7 +61,7 @@ class ProductTypeListCreateView(mixin.ListCreateAPIView):
     queryset = ProductType.objects.all()
 
 
-class ProductTypeUpdateDeleteDestroyView(mixin.RetrieveUpdateDestroyAPIView):
+class ProductTypeUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality

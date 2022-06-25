@@ -1,10 +1,10 @@
 from rest_framework.permissions import IsAuthenticated
 from weather.models import WeatherType
 from weather.serializer import WeatherTypeSerializer
-from base import mixin
+from base.mixin import admin_mixin
 
 
-class WeatherTypeListCreateView(mixin.ListCreateAPIView):
+class WeatherTypeListCreateView(admin_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create weather type like normal, hot, cold
@@ -22,7 +22,7 @@ class WeatherTypeListCreateView(mixin.ListCreateAPIView):
     queryset = WeatherType.objects.all()
 
 
-class WeatherTypeUpdateDeleteDestroyView(mixin.RetrieveUpdateDestroyAPIView):
+class WeatherTypeUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
