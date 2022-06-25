@@ -13,7 +13,7 @@ USER_TYPE_CHOICES = (
 
 
 class User(AbstractUser):
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=ADMIN)
 
     class Meta:
         verbose_name = "User"

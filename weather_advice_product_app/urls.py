@@ -15,7 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
 
 urlpatterns = [
+    # for default admin panel
     path('admin/', admin.site.urls),
+
+    # Token authentication for API
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair_api'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh_api'),
+
+    # for API docs
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redocs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
 ]
