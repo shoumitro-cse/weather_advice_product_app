@@ -4,14 +4,14 @@ from rest_framework.generics import (
 )
 from rest_framework import status
 from rest_framework.response import Response
-from accounts.models import User
+from accounts.models import ADMIN
 
 
 class AdminMixin:
     error_message = {"error": "The user must be an admin."}
 
     def is_admin_user(self, *args, **kwargs):
-        return self.request.user.user_type == User.ADMIN and self.request.user.is_superuser
+        return self.request.user.user_type == ADMIN and self.request.user.is_superuser
 
 
 class ListCreateAPIView(AdminMixin, BaseListCreateAPIView):

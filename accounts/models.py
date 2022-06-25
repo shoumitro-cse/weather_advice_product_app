@@ -4,10 +4,12 @@ from django.contrib.auth.models import AbstractUser ## A new class is imported. 
 from accounts.manager import UserManager
 
 
+ADMIN = 1
+VENDOR = 2
+CUSTOMER = 3
+
+
 class User(AbstractUser):
-    ADMIN = 1
-    VENDOR = 2
-    CUSTOMER = 3
 
     USER_TYPE_CHOICES = (
         (ADMIN, 'ADMIN'),
