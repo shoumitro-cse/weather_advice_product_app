@@ -29,12 +29,12 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     avatar = models.ImageField(default='default.png', upload_to='images/profile/')
-    bio = models.TextField()
-    dob = models.DateField()
-    address = models.TextField()
-    phone = models.CharField(max_length=15)
+    bio = models.TextField(null=True, blank=True)
+    dob = models.DateField(null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True, blank=True)
 
     class Meta:
         verbose_name = "Profile"

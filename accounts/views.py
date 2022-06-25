@@ -31,3 +31,30 @@ class UserUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, ]
     queryset = User.objects.all()
 
+
+class UserProfileCreateView(generics.CreateAPIView):
+    """ It is used to create the profile of an authenticated user."""
+
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def create(self, request, *args, **kwargs):
+        if not hasattr(self.request.user, "profile"):
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(user=self.request.user)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response({"error": "This user profile already exist."}, status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """  It is used to update the profile of an authenticated user."""
+
+    def get_object(self):
+        return self.request.user.profile if hasattr(self.request.user, "profile") \
+            else Profile.objects.create(user=self.request.user)
+
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated, ]
+
