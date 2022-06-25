@@ -35,6 +35,14 @@ class WeatherTypeUpdateDeleteDestroyView(mixin.RetrieveUpdateDestroyAPIView):
         <li> It performs a delete operation after sending a delete request.</li>
         <li> It gives the weather details after sending a get request.</li>
     </ul>
+    <br/>
+    Also, an admin able to set the temperature range(high, low) for each weather type using patch request.
+    <pre>
+    {
+      "temp_min": 45,
+      "temp_max": 345
+    }
+    </pre>
     </div>
     """
 
