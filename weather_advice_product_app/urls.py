@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -29,6 +29,9 @@ from accounts.serializer import TokenObtainPairSerializer
 urlpatterns = [
     # for default admin panel
     path('admin/', admin.site.urls),
+
+    # add accounts urls
+    path('accounts/', include('accounts.urls')),
 
     # Token authentication for API
     path('api/token/', TokenObtainPairView.as_view(serializer_class=TokenObtainPairSerializer),
