@@ -4,17 +4,10 @@ from rest_framework.generics import (
 )
 from rest_framework import status
 from rest_framework.response import Response
-from accounts.models import VENDOR
+from base.mixin.user_mixin import UserMixin
 
 
-class VendorMixin:
-    error_message = {"error": "The user must be an vendor."}
-
-    def is_vendor_user(self, *args, **kwargs):
-        return self.request.user.user_type == VENDOR and not self.request.user.is_superuser
-
-
-class ListCreateAPIView(VendorMixin, BaseListCreateAPIView):
+class ListCreateAPIView(UserMixin, BaseListCreateAPIView):
     """
     Concrete view for listing a queryset or creating a model instance.
     """
@@ -26,10 +19,11 @@ class ListCreateAPIView(VendorMixin, BaseListCreateAPIView):
     def post(self, request, *args, **kwargs):
         if not self.is_vendor_user():
             return Response(self.error_message, status.HTTP_400_BAD_REQUEST)
+        # request.data[""]
         return self.create(request, *args, **kwargs)
 
 
-class RetrieveUpdateDestroyAPIView(VendorMixin, BaseRetrieveUpdateDestroyAPIView):
+class RetrieveUpdateDestroyAPIView(UserMixin, BaseRetrieveUpdateDestroyAPIView):
     """
     This class only for admin user.
     Concrete view for retrieving, updating or deleting a model instance.

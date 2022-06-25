@@ -1,10 +1,9 @@
-from rest_framework.permissions import IsAuthenticated
-from products.models import ProductType, Product
-from products.serializer import ProductTypeSerializer, ProductSerializer
 from base.mixin import admin_mixin
+from base.mixin import product_mixin
+from products.mixins import ProductBaseViewMixin, ProductTypeBaseViewMixin
 
 
-class ProductListCreateView(admin_mixin.ListCreateAPIView):
+class ProductListCreateView(ProductBaseViewMixin, product_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product or to see all products.
@@ -16,13 +15,10 @@ class ProductListCreateView(admin_mixin.ListCreateAPIView):
     </ul>
     </div>
     """
-
-    serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated, ]
-    queryset = Product.objects.all()
+    pass
 
 
-class ProductUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIView):
+class ProductUpdateDeleteDestroyView(ProductBaseViewMixin, product_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -37,13 +33,10 @@ class ProductUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIView):
     </ul>
     </div>
     """
-
-    serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated, ]
-    queryset = Product.objects.all()
+    pass
 
 
-class ProductTypeListCreateView(admin_mixin.ListCreateAPIView):
+class ProductTypeListCreateView(ProductTypeBaseViewMixin, admin_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product type like normal, hot, cold
@@ -55,13 +48,10 @@ class ProductTypeListCreateView(admin_mixin.ListCreateAPIView):
     </ul>
     </div>
     """
-
-    serializer_class = ProductTypeSerializer
-    permission_classes = [IsAuthenticated, ]
-    queryset = ProductType.objects.all()
+    pass
 
 
-class ProductTypeUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIView):
+class ProductTypeUpdateDeleteDestroyView(ProductTypeBaseViewMixin, admin_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -76,7 +66,4 @@ class ProductTypeUpdateDeleteDestroyView(admin_mixin.RetrieveUpdateDestroyAPIVie
     </ul>
     </div>
     """
-
-    serializer_class = ProductTypeSerializer
-    permission_classes = [IsAuthenticated, ]
-    queryset = ProductType.objects.all()
+    pass
