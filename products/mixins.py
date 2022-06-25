@@ -5,13 +5,13 @@ from products.serializer import (
 )
 
 
-class ProductBaseViewMixin:
+class BaseProductViewMixin:
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated, ]
     queryset = Product.objects.all()
 
 
-class ProductTypeBaseViewMixin:
+class BaseProductTypeViewMixin:
 
     serializer_class = ProductTypeSerializer
     permission_classes = [IsAuthenticated, ]

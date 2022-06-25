@@ -14,8 +14,8 @@ urlpatterns = [
     path('product/type/<int:pk>/', ProductTypeUpdateDeleteDestroyView.as_view(),
          name='product_type_retrieve_update_delete'),
     #  This URL is used for product create or to see product lists
-    path('product/', ProductListCreateView.as_view(), name='product_create_list'),
+    path('vendor/product/', ProductListCreateView.as_view(), name='product_create_list'),
     # This URL is used for product retrieve, partially or fully update and delete
-    path('product/<int:pk>/', ProductUpdateDeleteDestroyView.as_view(),
+    path('vendor/product/<int:pk>/', ProductUpdateDeleteDestroyView.as_view(),
          name='product_retrieve_update_delete'),
 ]

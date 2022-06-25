@@ -6,7 +6,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ('is_active', 'created_at', 'created_by', 'updated_at', 'updated_by', )
+        exclude = ('vendor', 'is_active', 'created_at', 'created_by', 'updated_at', 'updated_by',)
 
 
 class ProductTypeSerializer(serializers.ModelSerializer):

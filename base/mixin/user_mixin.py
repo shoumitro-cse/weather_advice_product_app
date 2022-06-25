@@ -23,4 +23,6 @@ class CustomerMixin:
 
 
 class UserMixin(AdminMixin, VendorMixin, CustomerMixin):
-    pass
+
+    def get_user(self):
+        return self.request.user

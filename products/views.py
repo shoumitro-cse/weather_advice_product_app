@@ -1,14 +1,14 @@
 from base.mixin import admin_mixin
-from base.mixin import product_mixin
-from products.mixins import ProductBaseViewMixin, ProductTypeBaseViewMixin
+from base.mixin import vendor_mixin
+from products.mixins import BaseProductViewMixin, BaseProductTypeViewMixin
 
 
-class ProductListCreateView(ProductBaseViewMixin, product_mixin.ListCreateAPIView):
+class ProductListCreateView(BaseProductViewMixin, vendor_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product or to see all products.
-    Only Authenticated admin super will be able to perform it.
-    when an admin user try to send this request:
+    Only Authenticated vendor users will be able to perform it.
+    when a vendor user try to send this request:
     <ul>
         <li> It performs create operation after sending a post request </li>
         <li> It gives a list of product after sending a get request.</li>
@@ -18,13 +18,13 @@ class ProductListCreateView(ProductBaseViewMixin, product_mixin.ListCreateAPIVie
     pass
 
 
-class ProductUpdateDeleteDestroyView(ProductBaseViewMixin, product_mixin.RetrieveUpdateDestroyAPIView):
+class ProductUpdateDeleteDestroyView(BaseProductViewMixin, vendor_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
     like get, put, patch, and delete for product crud operation.
-    it is only for Authenticated admin users. <br/>Non-Authenticated users
-    or simple users can't access it. when an admin user try to send this request:
+    it is only for Authenticated vendor users. <br/>Non-Authenticated users
+    or simple users can't access it. when a vendor user try to send this request:
     <ul>
         <li> It performs an update operation after sending a put request.</li>
         <li> It performs a partial update operation after sending a patch request.</li>
@@ -36,7 +36,7 @@ class ProductUpdateDeleteDestroyView(ProductBaseViewMixin, product_mixin.Retriev
     pass
 
 
-class ProductTypeListCreateView(ProductTypeBaseViewMixin, admin_mixin.ListCreateAPIView):
+class ProductTypeListCreateView(BaseProductTypeViewMixin, admin_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product type like normal, hot, cold
@@ -51,7 +51,7 @@ class ProductTypeListCreateView(ProductTypeBaseViewMixin, admin_mixin.ListCreate
     pass
 
 
-class ProductTypeUpdateDeleteDestroyView(ProductTypeBaseViewMixin, admin_mixin.RetrieveUpdateDestroyAPIView):
+class ProductTypeUpdateDeleteDestroyView(BaseProductTypeViewMixin, admin_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
