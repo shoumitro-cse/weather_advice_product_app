@@ -6,8 +6,18 @@ from accounts.serializer import UserSerializer, UserProfileSerializer
 
 
 class UserListCreateView(generics.ListCreateAPIView):
-    """ This class is to be used to register and to see all users.
-    Only Authenticated admin super will be able to see it"""
+    """
+    <div style='text-align: justify;'>
+    This api is to be used to register like john, justin etc person account
+    or to see all user lists. register api also open for Non-Authenticated user
+    and Only Authenticated admin super will be able to see user lists.<br/>
+    when an admin user try to send this request:
+    <ul>
+        <li> It performs register operation after sending a post request </li>
+        <li> It gives a list of user after sending a get request.</li>
+    </ul>
+    </div>
+    """
 
     serializer_class = UserSerializer
     permission_classes = [AllowAny, ]
@@ -23,9 +33,20 @@ class UserListCreateView(generics.ListCreateAPIView):
 
 
 class UserUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    """  This class is used to get for four http methods functionality like
-        get, put, patch, delete for crud operation. it is only for
-        Authenticated users. Non-Authenticated users can't access it."""
+    """
+    <div style='text-align: justify;'>
+    This API is used to get four HTTP methods functionality
+    like get, put, patch, and delete for user crud operation.
+    it is only for Authenticated users. <br/>Non-Authenticated users can't access it.
+    when an admin user try to send this request:
+    <ul>
+        <li> It performs an update operation after sending a put request.</li>
+        <li> It performs a partial update operation after sending a patch request.</li>
+        <li> It performs a delete operation after sending a delete request.</li>
+        <li> It gives the user details after sending a get request.</li>
+    </ul>
+    </div>
+    """
 
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, ]
@@ -33,7 +54,15 @@ class UserUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserProfileCreateView(generics.CreateAPIView):
-    """ It is used to create the profile of an authenticated user."""
+    """
+    <div style='text-align: justify;'>
+    It is used to create the profile of an authenticated user.
+    when an user try to send this request:
+    <ul>
+        <li> It performs create operation after sending a post request </li>
+    </ul>
+    </div>
+    """
 
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated, ]
@@ -49,7 +78,20 @@ class UserProfileCreateView(generics.CreateAPIView):
 
 
 class UserProfileUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    """  It is used to update the profile of an authenticated user."""
+    """
+    <div style='text-align: justify;'>
+    This API is used to get four HTTP methods functionality
+    like get, put, patch, and delete for user crud operation.
+    it is only for Authenticated users. Non-Authenticated users can't access it.
+    when an user try to send this request:
+    <ul>
+        <li> It performs an update operation after sending a put request.</li>
+        <li> It performs a partial update operation after sending a patch request.</li>
+        <li> It performs a delete operation after sending a delete request.</li>
+        <li> It gives the user profile details after sending a get request.</li>
+    </ul>
+    </div>
+    """
 
     def get_object(self):
         return self.request.user.profile if hasattr(self.request.user, "profile") \
