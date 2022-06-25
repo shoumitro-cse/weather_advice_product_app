@@ -33,6 +33,9 @@ urlpatterns = [
     # add accounts urls
     path('accounts/', include('accounts.urls')),
 
+    # add weather urls
+    path('', include('weather.urls')),
+
     # Token authentication for API
     path('api/token/', TokenObtainPairView.as_view(serializer_class=TokenObtainPairSerializer),
          name='token_obtain_pair_api'),
