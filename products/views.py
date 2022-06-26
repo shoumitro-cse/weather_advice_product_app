@@ -1,6 +1,11 @@
+from django.db.models import Q
+from django.template.defaultfilters import title
+
 from base.mixin import admin_mixin
 from base.mixin import vendor_mixin
 from products.mixins import BaseProductViewMixin, BaseProductTypeViewMixin
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 
 class ProductListCreateView(BaseProductViewMixin, vendor_mixin.ListCreateAPIView):
@@ -67,3 +72,34 @@ class ProductTypeUpdateDeleteDestroyView(BaseProductTypeViewMixin, admin_mixin.R
     </div>
     """
     pass
+
+
+class CustomerProductView(BaseProductViewMixin, generics.ListAPIView):
+    """
+    <div style='text-align: justify;'>
+    Using this API,  customers will be able to see all the products and
+    also will be able to search for products using the product's name or weather type.
+    <ul>
+        <li> By default, It will see all products if someone sends only get request </li>
+        <li> If someone sends a get request with a filter query,  only filtered products will be seen.</li>
+    </ul>
+
+    <pre>
+    Filter products using the product's name or weather type.
+    Here,
+    protocol = http, https
+    port = 80, 800 etc
+    domain = localhost or others
+    {protocol}://{domain}:{port}/api/customer/product/?product_name={Your product name}&weather_type={Weather like hot, cold}
+    </pre>
+    </div>
+    """
+    permission_classes = [AllowAny, ]
+
+    def get_queryset(self):
+        query = Q()
+        if self.request.GET.get("product_name", None):
+            query |= Q(title__icontains=self.request.GET.get("product_name", None))
+        if self.request.GET.get("weather_type", None):
+            query |= Q(weather_type__name__icontains=self.request.GET.get("weather_type", None))
+        return self.model.objects.filter(query)

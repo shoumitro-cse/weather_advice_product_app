@@ -3,7 +3,8 @@ from products.views import (
     ProductTypeListCreateView,
     ProductTypeUpdateDeleteDestroyView,
     ProductListCreateView,
-    ProductUpdateDeleteDestroyView
+    ProductUpdateDeleteDestroyView,
+    CustomerProductView
 )
 
 urlpatterns = [
@@ -18,4 +19,6 @@ urlpatterns = [
     # This URL is used for product retrieve, partially or fully update and delete
     path('vendor/product/<int:pk>/', ProductUpdateDeleteDestroyView.as_view(),
          name='product_retrieve_update_delete'),
+    # Using this URL, customers will be able to see all the products.
+    path('customer/product/', CustomerProductView.as_view(), name='customer_product'),
 ]

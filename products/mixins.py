@@ -6,6 +6,7 @@ from products.serializer import (
 
 
 class BaseProductViewMixin:
+    model = Product
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated, ]
     queryset = Product.objects.all()
