@@ -39,7 +39,9 @@ port = 80, 8000 etc
 
 ## Testing
 ```
-Here, A total of 31 (Thirty one)  unit test has been added. al
+Here, A total of 31 (Thirty one)  unit test has been added. also, 
+you can run it separately. Each testing class doc provides 
+instructions on how to run it
 To run all test cases:
 python manage.py test tests
 ```
