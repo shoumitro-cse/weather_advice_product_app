@@ -14,8 +14,8 @@ TEMPERATURE_TYPE_CHOICES = (
 
 class WeatherType(BaseModel):
     name = models.CharField(max_length=50)
-    temp_min = models.IntegerField()
-    temp_max = models.IntegerField()
+    temp_min = models.FloatField()
+    temp_max = models.FloatField()
     temp_type = models.CharField(max_length=1, choices=TEMPERATURE_TYPE_CHOICES,
                                  default=FAHRENHEIT)
 

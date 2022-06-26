@@ -19,7 +19,7 @@ class ProductBaseCase:
         }
 
     def get_update_product_data(self):
-        weather_type = WeatherType.objects.create(name="cold", temp_min=1, temp_max=20, temp_type="C")
+        weather_type = WeatherType.objects.create(name="cold", temp_min=200, temp_max=300, temp_type="C")
         product_type = ProductType.objects.create(name="hot")
         return {
             "title": "hot temp dress",
@@ -29,16 +29,15 @@ class ProductBaseCase:
             "weather_type_id": weather_type.id,
         }
 
+    def create_product(self, vendor):
+        return Product.objects.create(vendor=vendor, **self.get_update_product_data())
+
 
 class ProductTests(ProductBaseCase, BaseAPITestCase):
-
     """
     To run this test case:
     python manage.py test products.tests.product_tests.ProductTests
     """
-
-    def create_product(self, vendor):
-        return Product.objects.create(vendor=vendor, **self.get_update_product_data())
 
     def test_get_product_list(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.get_token_from_vendor_user().get("access")}')

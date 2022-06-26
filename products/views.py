@@ -110,6 +110,6 @@ class CustomerProductView(BaseProductViewMixin, generics.ListAPIView):
         if self.request.GET.get("lat", None) and self.request.GET.get("lon", None):
             temp_data = get_temperature(lat=self.request.GET.get("lat", None), lon=self.request.GET.get("lon", None))
             if bool(temp_data):
-                query |= Q(weather_type__temp_max__lte=temp_data["temp"])\
-                         & Q(weather_type__temp_min__gte=temp_data["temp"])
+                query |= Q(weather_type__temp_max__gte=temp_data["temp"])\
+                         & Q(weather_type__temp_min__lte=temp_data["temp"])
         return self.model.objects.filter(query)
