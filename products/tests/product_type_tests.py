@@ -1,5 +1,4 @@
 from django.urls import reverse
-from accounts.models import User
 from base.tests import BaseAPITestCase
 from rest_framework import status
 from products.models import ProductType
@@ -8,6 +7,7 @@ from products.models import ProductType
 class ProductTypeTests(BaseAPITestCase):
 
     """
+    To run this test case:
     python manage.py test products.tests.product_type_tests.ProductTypeTests
     """
 
