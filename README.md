@@ -16,6 +16,7 @@ cd weather_advice_product_app
 cp env.example .env
 python -m venv venv
 source ./venv/bin/activate
+pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
@@ -25,7 +26,8 @@ python manage.py runserver
 
 ```
 Here, has been used a drf_spectacular package for API docs, I think that it will be 
-very helpful for frontend developers
+very helpful for frontend developers. If you would like to see special instructions 
+for each api, please keep your eye on each API doc.
 protocol = http, https
 domain = localhost or others
 port = 80, 8000 etc
