@@ -20,9 +20,6 @@ class ProductTypeTests(BaseAPITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.get_token_from_admin_user().get("access")}')
         product_type_data = {
             "name": "hot",
-            "temp_min": 100,
-            "temp_max": 200,
-            "temp_type": "F"
         }
         response = self.client.post(path=reverse('product_type_create_list'),
                                     data=product_type_data, format='json')
@@ -33,9 +30,6 @@ class ProductTypeTests(BaseAPITestCase):
         product_type = ProductType.objects.create(name="cold")
         product_type_data = {
             "name": "hot",
-            "temp_min": 100,
-            "temp_max": 200,
-            "temp_type": "F"
         }
         response = self.client.put(path=reverse('product_type_retrieve_update_delete', kwargs={'pk': product_type.id}),
                                     data=product_type_data, format='json')
@@ -45,8 +39,7 @@ class ProductTypeTests(BaseAPITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.get_token_from_admin_user().get("access")}')
         product_type = ProductType.objects.create(name="cold")
         product_type_data = {
-            "temp_min": 140,
-            "temp_max": 190
+            "name": "hot",
         }
         response = self.client.patch(path=reverse('product_type_retrieve_update_delete', kwargs={'pk': product_type.id}),
                                      data=product_type_data, format='json')
