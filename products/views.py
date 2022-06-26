@@ -3,6 +3,7 @@ from django.template.defaultfilters import title
 
 from base.mixin import admin_mixin
 from base.mixin import vendor_mixin
+from base.utils import get_temperature
 from products.mixins import BaseProductViewMixin, BaseProductTypeViewMixin
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -92,6 +93,10 @@ class CustomerProductView(BaseProductViewMixin, generics.ListAPIView):
     domain = localhost or others
     {protocol}://{domain}:{port}/api/customer/product/?product_name={Your product name}&weather_type={Weather like hot, cold}
     </pre>
+    <pre>
+    Also, customers will be able to see product depending on the current weather.
+    {protocol}://{domain}:{port}/api/customer/product/?lat={customer latitude}&lon={customer longitude}
+    </pre>
     </div>
     """
     permission_classes = [AllowAny, ]
@@ -102,4 +107,9 @@ class CustomerProductView(BaseProductViewMixin, generics.ListAPIView):
             query |= Q(title__icontains=self.request.GET.get("product_name", None))
         if self.request.GET.get("weather_type", None):
             query |= Q(weather_type__name__icontains=self.request.GET.get("weather_type", None))
+        if self.request.GET.get("lat", None) and self.request.GET.get("lon", None):
+            temp_data = get_temperature(lat=self.request.GET.get("lat", None), lon=self.request.GET.get("lon", None))
+            if bool(temp_data):
+                query |= Q(weather_type__temp_max__lte=temp_data["temp"])\
+                         & Q(weather_type__temp_min__gte=temp_data["temp"])
         return self.model.objects.filter(query)
