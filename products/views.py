@@ -89,7 +89,7 @@ class CustomerProductView(BaseProductViewMixin, generics.ListAPIView):
     Filter products using the product's name or weather type.
     Here,
     protocol = http, https
-    port = 80, 800 etc
+    port = 80, 8000 etc
     domain = localhost or others
     {protocol}://{domain}:{port}/api/customer/product/?product_name={Your product name}&weather_type={Weather like hot, cold}
     </pre>
