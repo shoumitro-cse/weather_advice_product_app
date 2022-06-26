@@ -1,15 +1,14 @@
 from django.db.models import Q
-from django.template.defaultfilters import title
-
 from base.mixin import admin_mixin
 from base.mixin import vendor_mixin
 from base.utils import get_temperature
-from products.mixins import BaseProductViewMixin, BaseProductTypeViewMixin
+from products import mixins
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
 
-class ProductListCreateView(BaseProductViewMixin, vendor_mixin.ListCreateAPIView):
+class ProductListCreateView(mixins.BaseProductViewMixin,
+                            vendor_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product or to see all products.
@@ -24,7 +23,8 @@ class ProductListCreateView(BaseProductViewMixin, vendor_mixin.ListCreateAPIView
     pass
 
 
-class ProductUpdateDeleteDestroyView(BaseProductViewMixin, vendor_mixin.RetrieveUpdateDestroyAPIView):
+class ProductUpdateDeleteDestroyView(mixins.BaseProductViewMixin,
+                                     vendor_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -42,7 +42,8 @@ class ProductUpdateDeleteDestroyView(BaseProductViewMixin, vendor_mixin.Retrieve
     pass
 
 
-class ProductTypeListCreateView(BaseProductTypeViewMixin, admin_mixin.ListCreateAPIView):
+class ProductTypeListCreateView(mixins.BaseProductTypeViewMixin,
+                                admin_mixin.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to create product type like normal, hot, cold
@@ -57,7 +58,8 @@ class ProductTypeListCreateView(BaseProductTypeViewMixin, admin_mixin.ListCreate
     pass
 
 
-class ProductTypeUpdateDeleteDestroyView(BaseProductTypeViewMixin, admin_mixin.RetrieveUpdateDestroyAPIView):
+class ProductTypeUpdateDeleteDestroyView(mixins.BaseProductTypeViewMixin,
+                                         admin_mixin.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -75,7 +77,8 @@ class ProductTypeUpdateDeleteDestroyView(BaseProductTypeViewMixin, admin_mixin.R
     pass
 
 
-class CustomerProductView(BaseProductViewMixin, generics.ListAPIView):
+class CustomerProductView(mixins.BaseProductViewMixin,
+                          generics.ListAPIView):
     """
     <div style='text-align: justify;'>
     Using this API,  customers will be able to see all the products and

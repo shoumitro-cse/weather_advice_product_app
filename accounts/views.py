@@ -1,12 +1,13 @@
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from accounts.models import User, Profile
+from accounts.models import Profile
 from base.constants import ADMIN
-from accounts.serializer import UserSerializer, UserProfileSerializer
+from accounts import mixins
 
 
-class UserListCreateView(generics.ListCreateAPIView):
+class UserListCreateView(mixins.BaseUserViewMixin,
+                         generics.ListCreateAPIView):
     """
     <div style='text-align: justify;'>
     This api is to be used to register like john, justin etc person account
@@ -20,10 +21,6 @@ class UserListCreateView(generics.ListCreateAPIView):
     </div>
     """
 
-    serializer_class = UserSerializer
-    permission_classes = [AllowAny, ]
-    queryset = User.objects.all()
-
     def list(self, *args, **kwargs):
         message = "Non-Authenticated users can't access it."
         if self.request.user.is_authenticated:
@@ -33,7 +30,8 @@ class UserListCreateView(generics.ListCreateAPIView):
         return Response({"error": message}, status.HTTP_400_BAD_REQUEST)
 
 
-class UserUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class UserUpdateDeleteDestroyView(mixins.BaseUserViewMixin,
+                                  generics.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -49,12 +47,11 @@ class UserUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
     </div>
     """
 
-    serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, ]
-    queryset = User.objects.all()
 
 
-class UserProfileCreateView(generics.CreateAPIView):
+class UserProfileCreateView(mixins.BaseUserProfileViewMixin,
+                            generics.CreateAPIView):
     """
     <div style='text-align: justify;'>
     It is used to create the profile of an authenticated user.
@@ -64,9 +61,6 @@ class UserProfileCreateView(generics.CreateAPIView):
     </ul>
     </div>
     """
-
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated, ]
 
     def create(self, request, *args, **kwargs):
         if not hasattr(self.request.user, "profile"):
@@ -78,7 +72,8 @@ class UserProfileCreateView(generics.CreateAPIView):
         return Response({"error": "This user profile already exist."}, status.HTTP_400_BAD_REQUEST)
 
 
-class UserProfileUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class UserProfileUpdateDeleteDestroyView(mixins.BaseUserProfileViewMixin,
+                                         generics.RetrieveUpdateDestroyAPIView):
     """
     <div style='text-align: justify;'>
     This API is used to get four HTTP methods functionality
@@ -97,7 +92,4 @@ class UserProfileUpdateDeleteDestroyView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return self.request.user.profile if hasattr(self.request.user, "profile") \
             else Profile.objects.create(user=self.request.user)
-
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated, ]
 
