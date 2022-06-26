@@ -1,6 +1,4 @@
 from django.urls import reverse
-import ast
-
 from base.constants import CUSTOMER
 from base.tests import BaseAPITestCase
 from rest_framework import status
@@ -10,15 +8,8 @@ from accounts.models import User
 class UsersTests(BaseAPITestCase):
     """
     To run this test case:
-    python manage.py test accounts.tests.UsersTests
+    python manage.py test accounts.tests.user_tests.UsersTests
     """
-
-    def test_get_jwt_token(self):
-        user = User.objects.create_superuser("admin@gmail.com", "1111")
-        response = self.client.post(path=reverse('token_obtain_pair_api'),
-                                    data={'email': user.email, "password": '1111'},
-                                    format='json')
-        assert response.status_code == status.HTTP_200_OK
 
     def test_user_list(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.get_token_from_admin_user().get("access")}')
