@@ -35,7 +35,7 @@ class ProductTypeTests(BaseAPITestCase):
                                     data=product_type_data, format='json')
         assert response.status_code == status.HTTP_200_OK
 
-    def test_product_temp_range_update(self):
+    def test_update_product_type_partially(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.get_token_from_admin_user().get("access")}')
         product_type = ProductType.objects.create(name="cold")
         product_type_data = {
