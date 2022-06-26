@@ -1,4 +1,4 @@
-from accounts.models import ADMIN, VENDOR, CUSTOMER
+from base.constants import ADMIN, VENDOR, CUSTOMER
 
 
 class AdminMixin:

@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager as Manager
+from base.constants import ADMIN
 
 
 class UserManager(Manager):
@@ -6,14 +7,14 @@ class UserManager(Manager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password,  user_type=None, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
         if not email:
             raise ValueError('The Email must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, user_type=user_type, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -30,4 +31,4 @@ class UserManager(Manager):
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(email, password,  user_type=ADMIN, **extra_fields)

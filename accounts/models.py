@@ -1,12 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser ## A new class is imported. ##
-
 from accounts.manager import UserManager
-
-
-ADMIN = 1
-VENDOR = 2
-CUSTOMER = 3
+from base.constants import CUSTOMER, ADMIN, VENDOR
 
 
 class User(AbstractUser):
@@ -17,7 +12,7 @@ class User(AbstractUser):
         (CUSTOMER, 'CUSTOMER'),
     )
 
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=ADMIN)
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, null=True, blank=True)
     email = models.EmailField("email address", blank=True, unique=True)
 
     objects = UserManager()

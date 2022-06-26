@@ -1,5 +1,5 @@
 from django.db import models
-from base import BaseModel
+from base.models import BaseModel
 
 
 CELSIUS = 'C'

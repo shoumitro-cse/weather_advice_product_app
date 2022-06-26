@@ -1,7 +1,8 @@
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from accounts.models import User, Profile, ADMIN
+from accounts.models import User, Profile
+from base.constants import ADMIN
 from accounts.serializer import UserSerializer, UserProfileSerializer
 
 
