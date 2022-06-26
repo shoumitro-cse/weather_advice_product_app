@@ -2,6 +2,7 @@ import ast
 from django.urls import reverse
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.test import APITestCase
+from accounts.models import User
 
 
 class BaseAPITestCase(APITestCase):
@@ -20,3 +21,6 @@ class BaseAPITestCase(APITestCase):
         )
         dict_str = response.content.decode("UTF-8")
         return ast.literal_eval(dict_str)
+
+    def get_token_from_admin_user(self):
+        return self.get_token_from_url(User.objects.create_superuser("admin@gmail.com", "1111"))
