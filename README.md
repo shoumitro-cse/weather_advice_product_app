@@ -35,7 +35,7 @@ port = 80, 8000 etc
 {protocol}://{domain}:{port}/api/redocs/
 {protocol}://{domain}:{port}/api/schema/ (for download API ymal file)
 ```
-
+![](https://github.com/shoumitro-cse/weather_advice_product_app/blob/main/docs/api_doc_image.png?raw=true)
 
 ## Testing
 ```
@@ -43,5 +43,7 @@ Here, A total of 31 (Thirty one)  unit test has been added. al
 To run all test cases:
 python manage.py test tests
 ```
+
+![](https://github.com/shoumitro-cse/weather_advice_product_app/blob/main/docs/test_image.png?raw=true)
 
 
