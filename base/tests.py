@@ -26,6 +26,9 @@ class BaseAPITestCase(APITestCase):
     def get_token_from_admin_user(self):
         return self.get_token_from_url(User.objects.create_superuser("admin@gmail.com", "1111"), "1111")
 
+    def get_token_from_user(self, user, password):
+        return self.get_token_from_url(user, password)
+
     def create_vendor(self, name="vendor"):
         return User.objects.create_user(f"{name}@gmail.com", "2222", VENDOR)
 
