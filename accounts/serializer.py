@@ -23,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
             'user_type',
             'is_active',
         ]
+
         extra_kwargs = {
             'password': {
                 'write_only': True

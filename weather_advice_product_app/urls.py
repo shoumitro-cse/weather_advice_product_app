@@ -18,7 +18,9 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
+    TokenVerifyView,
 )
+
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -43,10 +45,13 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(serializer_class=TokenObtainPairSerializer),
          name='token_obtain_pair_api'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh_api'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
 
     # for API docs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    #path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redocs/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
 ]
